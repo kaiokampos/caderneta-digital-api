@@ -6,6 +6,9 @@ import {
 
 const SALT_ROUNDS = 10;
 
+/**
+ * REGISTER
+ */
 export async function registerUser({ name, email, password }) {
   // Regra 1: email único
   const existingUser = findUserByEmail(email);
@@ -30,4 +33,32 @@ export async function registerUser({ name, email, password }) {
     name: user.name,
     email: user.email,
   };
+}
+
+/**
+ * LOGIN
+ */
+export async function loginUser({ email, password }) {
+  const user = findUserByEmail(email);
+
+  if (!user) {
+    const error = new Error("Credenciais inválidas");
+    error.statusCode = 401;
+    throw error;
+  }
+
+  const passwordMatches = await bcrypt.compare(password, user.passwordHash);
+
+  if (!passwordMatches) {
+    const error = new Error("Credenciais inválidas");
+    error.statusCode = 401;
+    throw error;
+  }
+
+  const token = signToken({
+    sub: user.id,
+    email: user.email,
+  });
+
+  return { token };
 }
