@@ -1,0 +1,23 @@
+{
+  "name": "caderneta-digital-api",
+  "version": "1.0.0",
+  "description": "API para controle de vendas a prazo para pequenos comerciantes",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "api",
+    "sales"
+  ],
+  "author": "Kaio Campos",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1"
+  }
+}
